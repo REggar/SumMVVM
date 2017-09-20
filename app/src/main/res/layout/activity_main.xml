@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.reggar.summvvm.feature.main.MainViewModel"
+            />
+    </data>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="@integer/column_count"
+        android:padding="@dimen/gap_small"
+        >
+
+        <EditText
+            android:id="@+id/edittext_summand1"
+            style="@style/EditTextSummandStyle"
+            android:onTextChanged="@{(text, start, before, count) -> viewModel.onSummandValueChanged(0, text)}"
+            />
+
+        <EditText
+            android:id="@+id/edittext_summand2"
+            style="@style/EditTextSummandStyle"
+            android:onTextChanged="@{(text, start, before, count) -> viewModel.onSummandValueChanged(1, text)}"
+            />
+
+        <EditText
+            android:id="@+id/edittext_summand3"
+            style="@style/EditTextSummandStyle"
+            android:onTextChanged="@{(text, start, before, count) -> viewModel.onSummandValueChanged(2, text)}"
+            />
+
+        <EditText
+            android:id="@+id/edittext_summand4"
+            style="@style/EditTextSummandStyle"
+            android:onTextChanged="@{(text, start, before, count) -> viewModel.onSummandValueChanged(3, text)}"
+            />
+
+        <EditText
+            android:id="@+id/edittext_summand5"
+            style="@style/EditTextSummandStyle"
+            android:onTextChanged="@{(text, start, before, count) -> viewModel.onSummandValueChanged(4, text)}"
+            />
+
+
+        <EditText
+            android:id="@+id/edittext_summand6"
+            style="@style/EditTextSummandStyle"
+            android:onTextChanged="@{(text, start, before, count) -> viewModel.onSummandValueChanged(5, text)}"
+            />
+
+        <TextView
+            android:id="@+id/textview_total"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/answer_height"
+            android:layout_columnSpan="@integer/column_count"
+            android:layout_columnWeight="@integer/column_count"
+            android:onClick="@{() -> viewModel.onTotalClicked()}"
+            android:text="@{viewModel.total}"
+            android:textAlignment="center"
+            app:autoSizeTextType="uniform"
+            isFlashing="@{viewModel.isTotalFlashing}"
+            />
+    </GridLayout>
+</layout>

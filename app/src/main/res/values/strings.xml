@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SumMVVM</string>
+    <string name="default_summand_value">0</string>
+</resources>
