@@ -3,6 +3,7 @@ package com.reggar.summvvm.feature.main
 import com.reggar.summvvm.BaseTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
+import java.util.concurrent.TimeUnit
 
 class MainViewModelTest : BaseTest() {
 
@@ -10,7 +11,7 @@ class MainViewModelTest : BaseTest() {
 
     override fun setUp() {
         super.setUp()
-        viewModel = MainViewModel()
+        viewModel = MainViewModel(testSchedulerProvider)
     }
 
     @Test
@@ -50,25 +51,50 @@ class MainViewModelTest : BaseTest() {
     }
 
     @Test
-    fun onTotalClicked_isFlashingToggled() {
+    fun onTotalClicked_initially_isFlashingOn() {
         /* Given */
 
         /* When */
         viewModel.onTotalClicked()
+        testScheduler.advanceTimeBy(0, TimeUnit.MILLISECONDS)
 
         /* Then */
-        assertThat(viewModel.isTotalFlashing.get()).isEqualTo(true)
+        assertThat(viewModel.isTotalVisible.get()).isEqualTo(true)
     }
 
     @Test
-    fun onTotalClickedTwice_isFlashingToggledOff() {
+    fun onTotalClicked_after1ms_isFlashingOff() {
         /* Given */
 
         /* When */
         viewModel.onTotalClicked()
-        viewModel.onTotalClicked()
+        testScheduler.advanceTimeBy(1, TimeUnit.MILLISECONDS)
 
         /* Then */
-        assertThat(viewModel.isTotalFlashing.get()).isEqualTo(false)
+        assertThat(viewModel.isTotalVisible.get()).isEqualTo(true)
+    }
+
+    @Test
+    fun onTotalClicked_after500ms_isFlashingOn() {
+        /* Given */
+
+        /* When */
+        viewModel.onTotalClicked()
+        testScheduler.advanceTimeBy(500, TimeUnit.MILLISECONDS)
+
+        /* Then */
+        assertThat(viewModel.isTotalVisible.get()).isEqualTo(true)
+    }
+
+    @Test
+    fun onTotalClicked_after1000ms_isFlashingOff() {
+        /* Given */
+
+        /* When */
+        viewModel.onTotalClicked()
+        testScheduler.advanceTimeBy(1000, TimeUnit.MILLISECONDS)
+
+        /* Then */
+        assertThat(viewModel.isTotalVisible.get()).isEqualTo(false)
     }
 }

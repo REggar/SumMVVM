@@ -68,7 +68,7 @@
             android:text="@{viewModel.total}"
             android:textAlignment="center"
             app:autoSizeTextType="uniform"
-            isFlashing="@{viewModel.isTotalFlashing}"
+            android:visibility="@{viewModel.isTotalVisible ? View.VISIBLE : View.GONE}"
             />
     </GridLayout>
 </layout>
